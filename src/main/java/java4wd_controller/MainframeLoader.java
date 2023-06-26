@@ -1,5 +1,6 @@
 package java4wd_controller;
 
+import java4wd_controller.drive.DriveControl;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -7,13 +8,14 @@ import javafx.scene.control.Label;
 
 public class MainframeLoader extends GridPane2 {
 
-    public MainframeLoader(final MainframeControllerValues mainframeControllerValues) {
+    public MainframeLoader(final MainframeParameter mainframeControllerValues, CanMsgSink canMsgSink) {
         super(true);
+        
         final ChoiceBox<Worker.State> transmitSpeed = new ChoiceBox<>();
 
         final Button startButton = new Button("Start");
         final Button stopButton = new Button("Stop");
-        final Button driveButton = new Button("Drive");
+//        final Button driveButton = new Button("Drive");
         final Label message = new Label("XXXXXXXX");
         final Label title = new Label("WWWWWW");
 
@@ -32,7 +34,9 @@ public class MainframeLoader extends GridPane2 {
         add(new Label("Message"), 0, 1);
         add(message, 1, 1);
 
-        add(driveButton, 0, 7, INSERTING.CENTER);
+//        add(driveButton, 0, 7, INSERTING.CENTER);
+        canMsgSink.poutgoing = outgoing.getItems();
+        add(new DriveControl(canMsgSink), 0, 7, INSERTING.CENTER);
         add(startButton, 0, 8, INSERTING.CENTER);
         add(stopButton, 1, 8, INSERTING.CENTER);
 
@@ -44,7 +48,7 @@ public class MainframeLoader extends GridPane2 {
         mainframeControllerValues.disablePropertyStartButton = startButton.disableProperty();
         mainframeControllerValues.onActionPropertyStartButton = startButton.onActionProperty();
         mainframeControllerValues.onActionPropertyStopButton = stopButton.onActionProperty();
-        mainframeControllerValues.onActionPropertyDriveButton = driveButton.onActionProperty();
+//        mainframeControllerValues.onActionPropertyDriveButton = driveButton.onActionProperty();
 
         mainframeControllerValues.message = message.textProperty();
         mainframeControllerValues.title = title.textProperty();
@@ -52,5 +56,7 @@ public class MainframeLoader extends GridPane2 {
  
         mainframeControllerValues.incomming = incomming.getItems();
         mainframeControllerValues.outgoing = outgoing.getItems();
+
+//        final ICanMsgSink iCanMsgSink = new CanMsgSink(mainframeControllerValues.outgoing);
     }
 }

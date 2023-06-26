@@ -10,14 +10,14 @@ import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class MainframeControllerValues {
+public class MainframeParameter {
     public BooleanProperty disablePropertyStartButton;
     public BooleanProperty isRunning;
     public ObservableList<Worker.State> stateWorker;
 
     public ObjectProperty<EventHandler<ActionEvent>> onActionPropertyStartButton;
     public ObjectProperty<EventHandler<ActionEvent>> onActionPropertyStopButton;
-    public ObjectProperty<EventHandler<ActionEvent>> onActionPropertyDriveButton;
+//    public ObjectProperty<EventHandler<ActionEvent>> onActionPropertyDriveButton;
 
     public StringProperty message;
     public StringProperty title;

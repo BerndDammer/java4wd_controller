@@ -11,8 +11,8 @@ public class CanMsg {
     public static final int CAN_ID_HEARTBEAT = 0X81041301;
     public static final int CAN_ID_DRIVE = 0X82050101;
 
-    protected int id;
-    protected int len;
+    public int id;
+    public int len;
     protected ByteBuffer data = ByteBuffer.allocate(8);
 
     public int getId() {

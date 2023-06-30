@@ -1,36 +1,117 @@
 package java4wd_controller.drive;
 
 import java.nio.ByteBuffer;
+import java.util.logging.Logger;
 
 import java4wd_controller.CanMsg;
-import java4wd_controller.ICanMsgSink;
+import java4wd_controller.FXTimer;
+import java4wd_controller.ICanEndpoint;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class DriveControl extends Canvas {
+	Logger logger = Logger.getLogger(getClass().getName());
 	private static final double W = 100.0;
-	private final ICanMsgSink iCanMsgSink;
+	private final ICanEndpoint.ICanMsgSource iCanMsgSink;
 
-	public DriveControl(ICanMsgSink iCanMsgSink) {
+	private final FXTimer fxTimer;
+	private double mx;
+	private double my;
+
+	public DriveControl(ICanEndpoint.ICanMsgSource iCanMsgSink) {
 		super(W, W);
 		this.iCanMsgSink = iCanMsgSink;
-		setOnMouseClicked( this::onMouseClicked);
+
+		setOnMousePressed(this::onMouseClicked);
+		setOnMouseDragged(this::onMouseDragged);
+		setOnMouseReleased(this::onMouseReleased);
+		setOnMouseExited(this::onMouseExited);
+
+		setActiveColor(false);
+
+		fxTimer = new FXTimer(this::ping);
+		fxTimer.setRate(Duration.millis(300.0));
 	}
-	
-	private void onMouseClicked(MouseEvent mouseEvent)
-	{
-		double x = mouseEvent.getX();
-		double y = mouseEvent.getY();
-		
+
+	private void setActiveColor(final boolean active) {
+		GraphicsContext gc = getGraphicsContext2D();
+		gc.setFill(active ? Color.LIGHTGREEN : Color.LIGHTGRAY);
+		gc.fillRect(0.0, 0.0, getWidth(), getHeight());
+	}
+
+	private void onMouseExited(MouseEvent mouseEvent) {
+		logger.info("exit");
+		deactivate();
+	}
+
+	private void onMouseReleased(MouseEvent mouseEvent) {
+		logger.info("released");
+		deactivate();
+	}
+
+	private void onMouseDragged(MouseEvent mouseEvent) {
+		activate();
+		mx = mouseEvent.getX();
+		my = mouseEvent.getY();
+
+		logger.info("X " + mx + "  Y " + my);
+	}
+
+	private void onMouseClicked(MouseEvent mouseEvent) {
+		activate();
+
+		mx = mouseEvent.getX();
+		my = mouseEvent.getY();
+
+		logger.info("X " + mx + "  Y " + my);
+	}
+
+	private void activate() {
+		setActiveColor(true);
+		fxTimer.setEnabled(true);
+	}
+
+	private void deactivate() {
+		mx = W * 0.5;
+		my = W * 0.5;
+		setActiveColor(false);
+		fxTimer.setEnabled(false);
+	}
+
+	private void ping() {
+		double wx, wy, l, r, f;
+		wx = mx / W * 2.0 - 1.0;
+		wy = 1.0 - my / W * 2.0;
+
+		l = wy + wx;
+		r = wy - wx;
+		f = 1.0;
+
+		if (l < -1.0 && f < -l)
+			f = -l;
+		if (r < -1.0 && f < -r)
+			f = -r;
+		if (l > 1.0 && f < l)
+			f = l;
+		if (r > 1.0 && f < r)
+			f = r;
+		l /= f;
+		r /= f;
+		l *= 100.0;
+		r *= 100.0;
+
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_DRIVE;
 		canMsg.len = 8;
 		final ByteBuffer bb = canMsg.getData();
 		bb.clear();
-		bb.putShort( (short)x);
-		bb.putShort( (short)y);
-		bb.putShort( (short)0);
-		bb.putShort( (short)0);
+		bb.putShort((short) l);
+		bb.putShort((short) r);
+		bb.putShort((short) l);
+		bb.putShort((short) r);
 		iCanMsgSink.transmit(canMsg);
 	}
 }

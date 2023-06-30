@@ -2,7 +2,7 @@ package java4wd_controller;
 
 import javafx.collections.ObservableList;
 
-public class CanMsgSink implements ICanMsgSink {
+public class CanMsgSink implements ICanEndpoint.ICanMsgSource {
 	ObservableList<CanMsg> poutgoing;
 	private final WebsocketStringServiceBroadcast websocketService;
 

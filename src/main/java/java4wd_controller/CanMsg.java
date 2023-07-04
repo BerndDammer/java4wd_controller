@@ -10,6 +10,7 @@ public class CanMsg {
 
     public static final int CAN_ID_HEARTBEAT = 0X81041301;
     public static final int CAN_ID_DRIVE = 0X82050101;
+    public static final int CAN_ID_LIGHTS = 0X82060101;
 
     public int id;
     public int len;

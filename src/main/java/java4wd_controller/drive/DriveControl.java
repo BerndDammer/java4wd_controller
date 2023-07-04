@@ -113,5 +113,17 @@ public class DriveControl extends Canvas {
 		bb.putShort((short) l);
 		bb.putShort((short) r);
 		iCanMsgSink.transmit(canMsg);
+		{
+			final CanMsg canMsg2 = new CanMsg();
+			canMsg2.id = CanMsg.CAN_ID_LIGHTS;
+			canMsg2.len = 4;
+			final ByteBuffer bb2 = canMsg2.getData();
+			bb2.clear();
+			bb2.put((byte)5);
+			bb2.put((byte)0);
+			bb2.put((byte)0);
+			bb2.put((byte)20);
+			iCanMsgSink.transmit(canMsg2);
+		}
 	}
 }

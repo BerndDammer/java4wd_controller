@@ -1,6 +1,9 @@
 package java4wd_controller;
 
+import java4wd_controller.can.CanMsgSink;
+import java4wd_controller.can.CanMsgView2;
 import java4wd_controller.drive.DriveControl;
+import java4wd_controller.drive.LightsControl;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -19,10 +22,10 @@ public class MainframeLoader extends GridPane2 {
         final Label message = new Label("XXXXXXXX");
         final Label title = new Label("WWWWWW");
 
-        final Label progress = new Label();
-        final Label totalWork = new Label();
-        final Label countIncomming = new Label();
-        final Label exception = new Label();
+//        final Label progress = new Label();
+//        final Label totalWork = new Label();
+//        final Label countIncomming = new Label();
+//        final Label exception = new Label();
         
         final CanMsgView2 incomming = new CanMsgView2();
         final CanMsgView2 outgoing = new CanMsgView2();
@@ -37,6 +40,7 @@ public class MainframeLoader extends GridPane2 {
 //        add(driveButton, 0, 7, INSERTING.CENTER);
         canMsgSink.poutgoing = outgoing.getItems();
         add(new DriveControl(canMsgSink), 0, 7, INSERTING.CENTER);
+        add(new LightsControl(canMsgSink), 1, 6, INSERTING.CENTER);
         add(startButton, 0, 8, INSERTING.CENTER);
         add(stopButton, 1, 8, INSERTING.CENTER);
 

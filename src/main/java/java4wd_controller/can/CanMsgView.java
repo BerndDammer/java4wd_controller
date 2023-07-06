@@ -1,4 +1,4 @@
-package java4wd_controller;
+package java4wd_controller.can;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;

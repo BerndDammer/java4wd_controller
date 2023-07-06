@@ -1,4 +1,8 @@
-package java4wd_controller;
+package java4wd_controller.drive;
+
+import java4wd_controller.can.CanMsg;
+import java4wd_controller.can.CanMsgFilter;
+import java4wd_controller.can.ICanEndpoint;
 
 public class Heartbeat implements ICanEndpoint.ICanMsgSink {
 	private final ICanEndpoint iCanEndpoint;

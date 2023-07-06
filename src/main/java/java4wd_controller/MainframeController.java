@@ -1,6 +1,9 @@
 package java4wd_controller;
 
 import java4wd_controller.WebsocketStringServiceBroadcast.NonFXThreadEventReciever;
+import java4wd_controller.can.CanMsg;
+import java4wd_controller.can.CanMsgHeartbeat;
+import java4wd_controller.can.CanMsgSink;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;

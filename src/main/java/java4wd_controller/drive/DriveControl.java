@@ -3,9 +3,9 @@ package java4wd_controller.drive;
 import java.nio.ByteBuffer;
 import java.util.logging.Logger;
 
-import java4wd_controller.CanMsg;
 import java4wd_controller.FXTimer;
-import java4wd_controller.ICanEndpoint;
+import java4wd_controller.can.CanMsg;
+import java4wd_controller.can.ICanEndpoint;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -113,17 +113,5 @@ public class DriveControl extends Canvas {
 		bb.putShort((short) l);
 		bb.putShort((short) r);
 		iCanMsgSink.transmit(canMsg);
-		{
-			final CanMsg canMsg2 = new CanMsg();
-			canMsg2.id = CanMsg.CAN_ID_LIGHTS;
-			canMsg2.len = 4;
-			final ByteBuffer bb2 = canMsg2.getData();
-			bb2.clear();
-			bb2.put((byte)5);
-			bb2.put((byte)0);
-			bb2.put((byte)0);
-			bb2.put((byte)20);
-			iCanMsgSink.transmit(canMsg2);
-		}
 	}
 }

@@ -1,4 +1,4 @@
-package java4wd_controller;
+package java4wd_controller.can;
 
 public interface ICanEndpoint {
 	interface ICanMsgSink

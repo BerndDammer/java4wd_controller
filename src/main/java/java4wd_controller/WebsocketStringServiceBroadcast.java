@@ -14,6 +14,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.logging.Logger;
 
+import java4wd_controller.can.CanMsg;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

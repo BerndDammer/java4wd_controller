@@ -1,4 +1,4 @@
-package java4wd_controller;
+package java4wd_controller.can;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -14,7 +14,7 @@ public class CanMsg {
 
     public int id;
     public int len;
-    protected ByteBuffer data = ByteBuffer.allocate(8);
+    public ByteBuffer data = ByteBuffer.allocate(8);
 
     public int getId() {
         return id;

@@ -18,7 +18,7 @@ public class LightsControl extends GridPane2 {
 	private final FXTimer fxTimer;
 
 	public LightsControl(ICanEndpoint.ICanMsgSource iCanMsgSink) {
-		super(false);
+		super(true);
 		this.iCanMsgSink = iCanMsgSink;
 
 		fxTimer = new FXTimer(this::onTimer);
@@ -34,10 +34,10 @@ public class LightsControl extends GridPane2 {
 		l3Button.onActionProperty().setValue(this::onl3);
 		l4Button.onActionProperty().setValue(this::onl4);
 
-		add(l1Button, 0,0, INSERTING.CENTER);
-		add(l2Button, 0,1, INSERTING.CENTER);
-		add(l3Button, 0,2, INSERTING.CENTER);
-		add(l4Button, 0,3, INSERTING.CENTER);
+		add(l1Button, 0,0, INSERTING.HGROW);
+		add(l2Button, 0,1, INSERTING.HGROW);
+		add(l3Button, 0,2, INSERTING.HGROW);
+		add(l4Button, 0,3, INSERTING.HGROW);
 	}
 
 	private void onl1(ActionEvent event) {

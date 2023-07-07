@@ -40,7 +40,7 @@ public class MainframeLoader extends GridPane2 {
 //        add(driveButton, 0, 7, INSERTING.CENTER);
         canMsgSink.poutgoing = outgoing.getItems();
         add(new DriveControl(canMsgSink), 0, 7, INSERTING.CENTER);
-        add(new LightsControl(canMsgSink), 1, 6, INSERTING.CENTER);
+        add(new LightsControl(canMsgSink), 0, 6, INSERTING.CENTER);
         add(startButton, 0, 8, INSERTING.CENTER);
         add(stopButton, 1, 8, INSERTING.CENTER);
 

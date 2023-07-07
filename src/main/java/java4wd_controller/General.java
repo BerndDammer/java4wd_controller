@@ -16,14 +16,13 @@ public class General {
     public static final int QUEUE_DEPTH = 20;
 
     public static final String IF_NAME = "eth3";
-    public static final int MULTICAST_PORT = 50100;
+    public static final int RECEIVE_PORT = 50100;
     public static final int SELECT_TIMEOUT = 2500;
     public static final InetSocketAddress FINAL_DESTINATION;
 
     static {
         InetSocketAddress isa;
         try {
-            //isa = new InetSocketAddress(InetAddress.getByName("224.0.0.1"), 50000);
             isa = new InetSocketAddress(InetAddress.getByName("255.255.255.255"), 50000);
         } catch (UnknownHostException e) {
             isa = null; // this should never happen

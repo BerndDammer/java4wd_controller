@@ -1,13 +1,9 @@
 package java4wd_controller;
 
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.InterfaceAddress;
-import java.net.NetworkInterface;
 import java.net.SocketAddress;
-import java.net.SocketException;
 import java.net.StandardProtocolFamily;
-import java.net.UnknownHostException;
+import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
@@ -57,7 +53,7 @@ public class WebsocketStringServiceBroadcast extends Service<Void> {
     }
 
     // TODO better Sync
-    DatagramChannel dc = null;
+    private DatagramChannel dc = null;
 
     public class WebsocketTask extends Task<Void> {
 
@@ -70,7 +66,8 @@ public class WebsocketStringServiceBroadcast extends Service<Void> {
             int counter = 0;
 
             dc = DatagramChannel.open(StandardProtocolFamily.INET);
-            dc.bind(new InetSocketAddress(General.MULTICAST_PORT));
+            dc.bind(new InetSocketAddress(General.RECEIVE_PORT));
+            dc.setOption(StandardSocketOptions.SO_BROADCAST, true);
 
             Selector selector = Selector.open();
             dc.configureBlocking(false);
@@ -123,28 +120,8 @@ public class WebsocketStringServiceBroadcast extends Service<Void> {
 
     private final NonFXThreadEventReciever nonFXThreadEventReciever;
 
-    InetSocketAddress broadcastDestination;
-
     public WebsocketStringServiceBroadcast(final NonFXThreadEventReciever nonFXThreadEventReciever) {
         this.nonFXThreadEventReciever = nonFXThreadEventReciever;
-
-        InetAddress localhost;
-        try {
-            localhost = InetAddress.getLocalHost();
-            final NetworkInterface mainIF = NetworkInterface.getByInetAddress(localhost);
-            final InterfaceAddress if4 = mainIF.getInterfaceAddresses().get(0);
-            final InetAddress if4broadcast = if4.getBroadcast();
-            broadcastDestination = new InetSocketAddress(if4broadcast, General.FINAL_DESTINATION.getPort());
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            broadcastDestination = null;
-        } catch (SocketException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            broadcastDestination = null;
-        }
-
     }
 
     @Override
@@ -160,7 +137,7 @@ public class WebsocketStringServiceBroadcast extends Service<Void> {
         bb.flip();
         try {
             // TODO check dc valid
-            dc.send(bb, broadcastDestination);
+            dc.send(bb, General.FINAL_DESTINATION);
         } catch (Exception e) {
             logger.warning(e.getMessage());
         }

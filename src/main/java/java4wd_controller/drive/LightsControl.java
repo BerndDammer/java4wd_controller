@@ -44,48 +44,48 @@ public class LightsControl extends GridPane2 {
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_LIGHTS;
 		canMsg.len = 4;
-		final ByteBuffer bb2 = canMsg.getData();
-		bb2.clear();
-		bb2.put((byte) 3);
-		bb2.put((byte) 20);
-		bb2.put((byte) 0);
-		bb2.put((byte) 0);
+		final ByteBuffer bb = canMsg.getData();
+		bb.clear();
+		bb.put((byte) 3);
+		bb.put((byte) 20);
+		bb.put((byte) 0);
+		bb.put((byte) 0);
 		iCanMsgSink.transmit(canMsg);
 	}
 	private void onl2(ActionEvent event) {
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_LIGHTS;
 		canMsg.len = 4;
-		final ByteBuffer bb2 = canMsg.getData();
-		bb2.clear();
-		bb2.put((byte) 4);
-		bb2.put((byte) 0);
-		bb2.put((byte) 20);
-		bb2.put((byte) 0);
+		final ByteBuffer bb = canMsg.getData();
+		bb.clear();
+		bb.put((byte) 4);
+		bb.put((byte) 0);
+		bb.put((byte) 20);
+		bb.put((byte) 0);
 		iCanMsgSink.transmit(canMsg);
 	}
 	private void onl3(ActionEvent event) {
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_LIGHTS;
 		canMsg.len = 4;
-		final ByteBuffer bb2 = canMsg.getData();
-		bb2.clear();
-		bb2.put((byte) 5);
-		bb2.put((byte) 0);
-		bb2.put((byte) 0);
-		bb2.put((byte) 20);
+		final ByteBuffer bb = canMsg.getData();
+		bb.clear();
+		bb.put((byte) 5);
+		bb.put((byte) 0);
+		bb.put((byte) 0);
+		bb.put((byte) 20);
 		iCanMsgSink.transmit(canMsg);
 	}
 	private void onl4(ActionEvent event) {	
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_LIGHTS;
 		canMsg.len = 4;
-		final ByteBuffer bb2 = canMsg.getData();
-		bb2.clear();
-		bb2.put((byte) 6);
-		bb2.put((byte) 0);
-		bb2.put((byte) 10);
-		bb2.put((byte) 10);
+		final ByteBuffer bb = canMsg.getData();
+		bb.clear();
+		bb.put((byte) 6);
+		bb.put((byte) 0);
+		bb.put((byte) 10);
+		bb.put((byte) 10);
 		iCanMsgSink.transmit(canMsg);
 	}
 	private void onTimer() {	

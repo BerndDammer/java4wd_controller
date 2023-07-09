@@ -6,10 +6,10 @@ import java.util.List;
 import java4wd_controller.gui.WebsocketStringServiceBroadcast;
 import javafx.application.Platform;
 
-public class SqidGame implements ICan.Tentacle, ICan.Squid {
+public class SquidGame implements ICan.Tentacle, ICan.SquidBody {
 
 	private class DemuxMap {
-		private final CanMsgFilter filter;
+		private final ICan.Filter filter;
 		private final ICan.Endpoint endpoint;
 
 		public DemuxMap(CanMsgFilter filter, ICan.Endpoint endpoint) {
@@ -23,7 +23,7 @@ public class SqidGame implements ICan.Tentacle, ICan.Squid {
 	private final ICan.Monitoring out;
 	private final ICan.Monitoring in;
 
-	public SqidGame(WebsocketStringServiceBroadcast websocketStringServiceBroadcast, ICan.Monitoring out,
+	public SquidGame(WebsocketStringServiceBroadcast websocketStringServiceBroadcast, ICan.Monitoring out,
 			ICan.Monitoring in) {
 		this.websocketStringServiceBroadcast = websocketStringServiceBroadcast;
 		this.out = out;

@@ -51,7 +51,7 @@ public class WebsocketStringServiceBroadcast extends Service<Void> {
 
 	// TODO better Sync
 	private DatagramChannel dc = null;
-	private ICan.Squid squid;
+	private ICan.SquidBody squid;
 
 	public class WebsocketTask extends Task<Void> {
 
@@ -139,11 +139,11 @@ public class WebsocketStringServiceBroadcast extends Service<Void> {
 		}
 	}
 
-	public ICan.Squid getSquid() {
+	public ICan.SquidBody getSquid() {
 		return squid;
 	}
 
-	public void setSquid(ICan.Squid squid) {
+	public void setSquid(ICan.SquidBody squid) {
 		this.squid = squid;
 	}
 }

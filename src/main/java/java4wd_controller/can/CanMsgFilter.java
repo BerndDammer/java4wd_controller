@@ -1,6 +1,6 @@
 package java4wd_controller.can;
 
-public enum CanMsgFilter {
+public enum CanMsgFilter implements ICan.Filter {
 
 	HEARTBEAT(0XFFFFFF00, 0X81041300), //
 	DRIVE(0XFFFFFF00, 0X82050100), //
@@ -14,7 +14,8 @@ public enum CanMsgFilter {
 		this.val = val;
 	}
 
-	boolean is(CanMsg canMsg) {
+	@Override
+	public boolean is(CanMsg canMsg) {
 		boolean result;
 		result = (canMsg.id & mask) == val;
 		return result;

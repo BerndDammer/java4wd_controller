@@ -16,12 +16,16 @@ public interface ICan {
 	}
 
 	// from node to mux / demux
-	public interface Squid {
+	public interface SquidBody {
 		public void push(CanMsg canMsg);
 	}
 
 	// Message from Squid to Endpoint
 	public interface Endpoint {
 		public void onCanMsg(CanMsg canMsg);
+	}
+	// is Message part of Group
+	public interface Filter {
+		public boolean is(CanMsg canMsg);
 	}
 }

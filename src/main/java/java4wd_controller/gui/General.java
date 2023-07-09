@@ -12,7 +12,7 @@ public class General {
 	public static final int BUFFER_SIZE = 4096;
 	public static final Duration DEFAULT_SPEED = Duration.millis(1000.0);
 	public static final int POLLING_DELAY_MS = 150;
-	public static final int LOG_AUTODELETE = 17;
+	public static final int LOG_AUTODELETE = 13;
 	public static final java.time.Duration CONNECT_TIMEOUT = java.time.Duration.ofSeconds(3l);
 	public static final int RECEIVE_PORT = 50100;
 	public static final int SELECT_TIMEOUT = 2500;

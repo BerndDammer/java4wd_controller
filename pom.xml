@@ -63,7 +63,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>java4wd_controller.FXStarter</mainClass>
+							<mainClass>java4wd_controller.gui.FXStarter</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

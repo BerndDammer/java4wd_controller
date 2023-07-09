@@ -1,11 +1,11 @@
-package java4wd_controller.drive;
+package java4wd_controller.endpoints;
 
 import java.nio.ByteBuffer;
 import java.util.logging.Logger;
 
-import java4wd_controller.FXTimer;
 import java4wd_controller.can.CanMsg;
-import java4wd_controller.can.ICanEndpoint;
+import java4wd_controller.can.ICan;
+import java4wd_controller.gui.FXTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -15,15 +15,15 @@ import javafx.util.Duration;
 public class DriveControl extends Canvas {
 	Logger logger = Logger.getLogger(getClass().getName());
 	private static final double W = 100.0;
-	private final ICanEndpoint.ICanMsgSource iCanMsgSink;
+	private final ICan.Tentacle tentacle;
 
 	private final FXTimer fxTimer;
 	private double mx;
 	private double my;
 
-	public DriveControl(ICanEndpoint.ICanMsgSource iCanMsgSink) {
+	public DriveControl(ICan.Tentacle tentacle) {
 		super(W, W);
-		this.iCanMsgSink = iCanMsgSink;
+		this.tentacle = tentacle;
 
 		setOnMousePressed(this::onMouseClicked);
 		setOnMouseDragged(this::onMouseDragged);
@@ -42,6 +42,7 @@ public class DriveControl extends Canvas {
 		gc.fillRect(0.0, 0.0, getWidth(), getHeight());
 	}
 
+	// TODO better tracking logic
 	private void onMouseExited(MouseEvent mouseEvent) {
 		logger.info("exit");
 		deactivate();
@@ -112,6 +113,6 @@ public class DriveControl extends Canvas {
 		bb.putShort((short) r);
 		bb.putShort((short) l);
 		bb.putShort((short) r);
-		iCanMsgSink.transmit(canMsg);
+		tentacle.transmit(canMsg);
 	}
 }

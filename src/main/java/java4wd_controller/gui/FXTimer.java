@@ -1,4 +1,4 @@
-package java4wd_controller;
+package java4wd_controller.gui;
 
 import javafx.animation.Animation;
 import javafx.animation.Animation.Status;
@@ -16,6 +16,7 @@ public class FXTimer {
     public FXTimer(final Runnable timed) {
         this.timed = timed;
         timeline.setCycleCount(Animation.INDEFINITE);
+        // TODO remove this
         timeline.getKeyFrames().add(new KeyFrame(General.COMMAND_DELAY_MS, this::onKeyFrame));
     }
 

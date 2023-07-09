@@ -1,4 +1,4 @@
-package java4wd_controller;
+package java4wd_controller.gui;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -21,6 +21,7 @@ public class GridPane2 extends GridPane {
     }
 
     protected GridPane2(boolean e) {
+    	// TODO more row column
         if (e)
             extend();
     }

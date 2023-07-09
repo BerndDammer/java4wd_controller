@@ -2,9 +2,11 @@ package java4wd_controller.can;
 
 import java.net.SocketException;
 
+import java4wd_controller.gui.General;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 
-public class CanMsgView2 extends CanMsgView {
+public class CanMsgView2 extends CanMsgView implements ICan.Monitoring{
 
     private class CellFacID extends CellFactoryBase {
         @Override
@@ -42,5 +44,15 @@ public class CanMsgView2 extends CanMsgView {
                 col.setPrefWidth(33.0);
             }
         }
+    }
+
+    @Override
+    public void add(final CanMsg canMsg)
+    {
+    	final ObservableList<CanMsg> outgoing = getItems();
+		if (outgoing.size() > General.LOG_AUTODELETE) {
+			outgoing.clear();
+		}
+		outgoing.add(canMsg);
     }
 }

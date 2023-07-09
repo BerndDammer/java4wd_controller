@@ -1,4 +1,4 @@
-package java4wd_controller;
+package java4wd_controller.gui;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 
 public class FXMainApp extends Application {
     public void start(Stage stage) throws IOException {
-        final MainframeController mfc = new MainframeController();
-        Scene scene = new Scene(mfc.getRootNode(), mfc.getRootNode().getPrefWidth(), mfc.getRootNode().getPrefHeight());
+        final MainFrame mfc = new MainFrame();
+        Scene scene = new Scene(mfc);
         stage.setTitle("UDP Multicast Test");
         stage.setScene(scene);
         stage.centerOnScreen();

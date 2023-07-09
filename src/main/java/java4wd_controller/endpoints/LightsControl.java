@@ -1,25 +1,27 @@
-package java4wd_controller.drive;
+package java4wd_controller.endpoints;
 
 import java.nio.ByteBuffer;
 import java.util.logging.Logger;
 
-import java4wd_controller.FXTimer;
-import java4wd_controller.GridPane2;
 import java4wd_controller.can.CanMsg;
-import java4wd_controller.can.ICanEndpoint;
+import java4wd_controller.can.ICan;
+import java4wd_controller.gui.FXTimer;
+import java4wd_controller.gui.GridPane2;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 
 public class LightsControl extends GridPane2 {
 	Logger logger = Logger.getLogger(getClass().getName());
-	private final ICanEndpoint.ICanMsgSource iCanMsgSink;
+	private final ICan.Tentacle tentacle;
 
 	private final FXTimer fxTimer;
 
-	public LightsControl(ICanEndpoint.ICanMsgSource iCanMsgSink) {
+	// TODO more messages
+	// TODO light show
+	public LightsControl(ICan.Tentacle tentacle) {
 		super(true);
-		this.iCanMsgSink = iCanMsgSink;
+		this.tentacle = tentacle;
 
 		fxTimer = new FXTimer(this::onTimer);
 		fxTimer.setRate(Duration.millis(300.0));
@@ -50,7 +52,7 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 20);
 		bb.put((byte) 0);
 		bb.put((byte) 0);
-		iCanMsgSink.transmit(canMsg);
+		tentacle.transmit(canMsg);
 	}
 	private void onl2(ActionEvent event) {
 		final CanMsg canMsg = new CanMsg();
@@ -62,7 +64,7 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 0);
 		bb.put((byte) 20);
 		bb.put((byte) 0);
-		iCanMsgSink.transmit(canMsg);
+		tentacle.transmit(canMsg);
 	}
 	private void onl3(ActionEvent event) {
 		final CanMsg canMsg = new CanMsg();
@@ -74,7 +76,7 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 0);
 		bb.put((byte) 0);
 		bb.put((byte) 20);
-		iCanMsgSink.transmit(canMsg);
+		tentacle.transmit(canMsg);
 	}
 	private void onl4(ActionEvent event) {	
 		final CanMsg canMsg = new CanMsg();
@@ -86,7 +88,7 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 0);
 		bb.put((byte) 10);
 		bb.put((byte) 10);
-		iCanMsgSink.transmit(canMsg);
+		tentacle.transmit(canMsg);
 	}
 	private void onTimer() {	
 		

@@ -13,8 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class DriveControl extends Canvas {
-	Logger logger = Logger.getLogger(getClass().getName());
-	private static final double W = 100.0;
+	public static final boolean LOGDRIVE = false;
+	private final Logger logger = Logger.getLogger(getClass().getName());
+
+	private static final double W = 160.0;
 	private final ICan.Tentacle tentacle;
 
 	private final FXTimer fxTimer;
@@ -32,8 +34,8 @@ public class DriveControl extends Canvas {
 
 		setActiveColor(false);
 
-		fxTimer = new FXTimer(this::ping);
-		fxTimer.setRate(Duration.millis(300.0));
+		fxTimer = new FXTimer();
+		fxTimer.setAction(this::ping, Duration.millis(700.0));
 	}
 
 	private void setActiveColor(final boolean active) {
@@ -44,12 +46,14 @@ public class DriveControl extends Canvas {
 
 	// TODO better tracking logic
 	private void onMouseExited(MouseEvent mouseEvent) {
-		logger.info("exit");
+		if (LOGDRIVE)
+			logger.info("exit");
 		deactivate();
 	}
 
 	private void onMouseReleased(MouseEvent mouseEvent) {
-		logger.info("released");
+		if (LOGDRIVE)
+			logger.info("released");
 		deactivate();
 	}
 
@@ -58,7 +62,9 @@ public class DriveControl extends Canvas {
 		mx = mouseEvent.getX();
 		my = mouseEvent.getY();
 
-		logger.info("X " + mx + "  Y " + my);
+		if (LOGDRIVE)
+			logger.info("X " + mx + "  Y " + my);
+		ping();
 	}
 
 	private void onMouseClicked(MouseEvent mouseEvent) {
@@ -67,12 +73,15 @@ public class DriveControl extends Canvas {
 		mx = mouseEvent.getX();
 		my = mouseEvent.getY();
 
-		logger.info("X " + mx + "  Y " + my);
+		if (LOGDRIVE)
+			logger.info("X " + mx + "  Y " + my);
+		ping();
 	}
 
 	private void activate() {
 		setActiveColor(true);
 		fxTimer.setEnabled(true);
+		fxTimer.retrigger();
 	}
 
 	private void deactivate() {

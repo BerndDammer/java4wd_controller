@@ -23,8 +23,8 @@ public class LightsControl extends GridPane2 {
 		super(true);
 		this.tentacle = tentacle;
 
-		fxTimer = new FXTimer(this::onTimer);
-		fxTimer.setRate(Duration.millis(300.0));
+		fxTimer = new FXTimer();
+		fxTimer.setAction(this::onTimer, Duration.millis(300.0));
 
 		final Button l1Button = new Button("L1");
 		final Button l2Button = new Button("L2");
@@ -36,10 +36,10 @@ public class LightsControl extends GridPane2 {
 		l3Button.onActionProperty().setValue(this::onl3);
 		l4Button.onActionProperty().setValue(this::onl4);
 
-		add(l1Button, 0,0, INSERTING.HGROW);
-		add(l2Button, 0,1, INSERTING.HGROW);
-		add(l3Button, 0,2, INSERTING.HGROW);
-		add(l4Button, 0,3, INSERTING.HGROW);
+		add(l1Button, 0, 0, INSERTING.HGROW);
+		add(l2Button, 0, 1, INSERTING.HGROW);
+		add(l3Button, 0, 2, INSERTING.HGROW);
+		add(l4Button, 0, 3, INSERTING.HGROW);
 	}
 
 	private void onl1(ActionEvent event) {
@@ -54,6 +54,7 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 0);
 		tentacle.transmit(canMsg);
 	}
+
 	private void onl2(ActionEvent event) {
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_LIGHTS;
@@ -66,6 +67,7 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 0);
 		tentacle.transmit(canMsg);
 	}
+
 	private void onl3(ActionEvent event) {
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_LIGHTS;
@@ -78,7 +80,8 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 20);
 		tentacle.transmit(canMsg);
 	}
-	private void onl4(ActionEvent event) {	
+
+	private void onl4(ActionEvent event) {
 		final CanMsg canMsg = new CanMsg();
 		canMsg.id = CanMsg.CAN_ID_LIGHTS;
 		canMsg.len = 4;
@@ -90,7 +93,8 @@ public class LightsControl extends GridPane2 {
 		bb.put((byte) 10);
 		tentacle.transmit(canMsg);
 	}
-	private void onTimer() {	
-		
+
+	private void onTimer() {
+
 	}
 }

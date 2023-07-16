@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="java4wd_controller/can/CanMsgSink.java|java4wd_controller/MainframeController.java|java4wd_controller/MainframeLoader.java|java4wd_controller/MainframeParameter.java|java4wd_controller/can/ICanMessageMonitoring.java|java4wd_controller/can/ICanSquid.java|java4wd_controller/can/ICanTentacle.java|java4wd_controller/can/CanMsgHeartbeat.java" kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="java4wd_controller/can/CanMsgSink.java|java4wd_controller/MainframeController.java|java4wd_controller/MainframeLoader.java|java4wd_controller/MainframeParameter.java|java4wd_controller/can/ICanMessageMonitoring.java|java4wd_controller/can/ICanSquid.java|java4wd_controller/can/ICanTentacle.java|java4wd_controller/can/CanMsgHeartbeat.java|java4wd_controller/endpoints/HeartbeatStringBinding.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>

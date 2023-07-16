@@ -28,6 +28,7 @@ public class SquidGame implements ICan.Tentacle, ICan.SquidBody {
 		this.websocketStringServiceBroadcast = websocketStringServiceBroadcast;
 		this.out = out;
 		this.in = in;
+		websocketStringServiceBroadcast.setSquid(this);
 	}
 
 	@Override

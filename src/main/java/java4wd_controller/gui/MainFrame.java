@@ -24,7 +24,5 @@ public class MainFrame extends GridPane2 {
 		
 		add(incomming, 0, 2, INSERTING.FILL);
 		add(outgoing, 1, 2, INSERTING.FILL);
-		
-		websocketService.setSquid(squidGame);
 	}
 }

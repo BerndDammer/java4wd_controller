@@ -11,12 +11,14 @@ import java4wd_controller.can.ICan.Tentacle;
 import java4wd_controller.gui.FXTimer;
 import java4wd_controller.gui.General;
 import java4wd_controller.gui.GridPane2;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
-public class Heartbeat extends GridPane2 implements ICan.Endpoint {
-	private static final Logger logger = Logger.getLogger(Heartbeat.class.getName());
+public class HeartbeatStringBinding extends GridPane2 implements ICan.Endpoint {
+	private static final Logger logger = Logger.getLogger(HeartbeatStringBinding.class.getName());
 
 	private FXTimer fxTimer = new FXTimer();
 	private final ICan.Tentacle tentacle;
@@ -24,12 +26,24 @@ public class Heartbeat extends GridPane2 implements ICan.Endpoint {
 	private short counter = 1;
 	private long lastRec = 0l;
 	private short lastSeen;
+	private SimpleIntegerProperty errno = new SimpleIntegerProperty(7);
 
 	private final CheckBox hEnable;
 	// TODO more informative status
 	private final Label status = new Label("XXXXXXXX");
 
-	public Heartbeat(Tentacle tentacle) {
+	private class I2s extends StringBinding {
+		private I2s(SimpleIntegerProperty errno) {
+			bind(errno);
+		}
+
+		@Override
+		protected String computeValue() {
+			return Integer.toOctalString(errno.intValue());
+		}
+	}
+
+	public HeartbeatStringBinding(Tentacle tentacle) {
 		super(true);
 		this.tentacle = tentacle;
 		tentacle.register(CanMsgFilter.HEARTBEAT, this);
@@ -38,6 +52,8 @@ public class Heartbeat extends GridPane2 implements ICan.Endpoint {
 		hEnable.setOnAction(this::onEnable);
 		add(hEnable, 0, 0, INSERTING.HGROW);
 		add(status, 0, 1, INSERTING.HGROW);
+
+		status.textProperty().bind(new I2s(errno));
 	}
 
 	private void onEnable(ActionEvent ae) {
@@ -63,7 +79,8 @@ public class Heartbeat extends GridPane2 implements ICan.Endpoint {
 		lastSeen = bb.getShort();
 		int echo = bb.getShort();
 		lastRec = System.currentTimeMillis();
-		status.setText(echo != -1 ? "OK" : "Reaction Failure");
+		// status.setText(echo != -1 ? "GOOD" : "BAD");
+		errno.setValue(echo != -1 ? 0 : 2);
 	}
 
 	public void onTimeout() {
@@ -81,7 +98,8 @@ public class Heartbeat extends GridPane2 implements ICan.Endpoint {
 			bb.putShort(lastSeen);
 		} else {
 			bb.putShort((short) 0XFFFF);
-			status.setText("Echo Timeout");
+//			status.setText("FAIL");
+			errno.setValue(1);
 		}
 		bb.putShort((short) 0);
 		bb.putShort((short) 0);
